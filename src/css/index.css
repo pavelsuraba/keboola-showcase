@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply text-sm;
+  @apply text-black;
+  @apply bg-gray-light;
+  @apply font-sans;
+  @apply font-normal;
+  @apply antialiased;
+  -webkit-text-size-adjust: 100%;
+}
