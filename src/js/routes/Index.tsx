@@ -4,13 +4,15 @@ import { Loader } from '../components/Loader'
 import { ComponentList } from '../components/ComponentList'
 import { filterValue } from '../utils/string'
 import { SearchInput } from '../components/SearchInput'
+import { useNavigate } from 'react-router-dom'
 
 export const Index = () => {
   const [query, setQuery] = useState('')
   const { data, isLoading } = useKeboolaComponentData()
+  const navigate = useNavigate()
 
   const handleClick = (id: string) => {
-    console.log(id)
+    navigate(`/components/${id}`)
   }
 
   // Type at least 2 letters to filter results
@@ -26,9 +28,9 @@ export const Index = () => {
     : data
 
   return (
-    <>
-      <div className="flex items-center justify-between pt-12 pb-8">
-        <h1 className="text-3xl font-medium">
+    <section className="py-8 lg:py-12">
+      <div className="flex items-center justify-between pb-4 lg:pb-8">
+        <h1 className="text-lg lg:text-3xl font-medium">
           Components {filteredData && `(${filteredData.length})`}
         </h1>
 
@@ -42,7 +44,7 @@ export const Index = () => {
       </div>
 
       {isLoading && (
-        <div className="h-[65vh] flex items-center justify-center">
+        <div className="h-[50vh] flex items-center justify-center">
           <Loader />
         </div>
       )}
@@ -62,6 +64,6 @@ export const Index = () => {
           )}
         </>
       )}
-    </>
+    </section>
   )
 }

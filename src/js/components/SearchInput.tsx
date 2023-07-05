@@ -39,7 +39,7 @@ export const SearchInput = ({
         aria-label="Search"
         type="text"
         placeholder={placeholder}
-        className="pl-9 pr-8 rounded-md bg-white h-10 w-full outline-0 border border-gray-200 focus:border-gray-400 placeholder:text-gray-500 text-base"
+        className="pl-9 pr-8 rounded-md bg-white h-10 w-full outline-0 border border-gray-200 focus:border-gray-400 placeholder:text-gray-500"
         onChange={handleSearch}
         value={value}
       />
