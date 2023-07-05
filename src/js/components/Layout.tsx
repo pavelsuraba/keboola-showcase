@@ -12,7 +12,10 @@ export const Header = () => (
   <header className="bg-white shadow shadow-gray-200">
     <Container className="flex py-3">
       <KeboolaLogo />
-      <h1 className="pl-3 pt-0.5 text-gray-400 font-medium">Keboola</h1>
+      <div className="pl-3 pt-0.5">
+        <h1 className=" text-gray-400 font-medium">Keboola</h1>
+        <p className="font-medium text-base leading-none">user@gmail.com</p>
+      </div>
     </Container>
   </header>
 )
