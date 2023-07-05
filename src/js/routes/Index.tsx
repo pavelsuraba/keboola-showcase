@@ -28,9 +28,9 @@ export const Index = () => {
   return (
     <>
       <div className="flex items-center justify-between pt-12 pb-8">
-        <h2 className="text-3xl font-medium">
+        <h1 className="text-3xl font-medium">
           Components {filteredData && `(${filteredData.length})`}
-        </h2>
+        </h1>
 
         <SearchInput
           className="w-56"

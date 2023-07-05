@@ -15,3 +15,7 @@ body {
 mark {
   @apply bg-blue-200;
 }
+
+.revertStyles * {
+  all: revert;
+}

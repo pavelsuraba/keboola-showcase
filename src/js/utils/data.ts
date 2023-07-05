@@ -10,7 +10,6 @@ export type Component = {
   id: string
   categories: string[]
   shortDescription: string | null
-  longDescription: string | null
   name: string
   icon: Icon
 }
@@ -22,6 +21,10 @@ type Icon = {
 }
 
 export type ComponentsResponse = Array<Component>
+export type ComponentDetailResponse = Component & {
+  version: string
+  longDescription: string | null
+}
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json())
 
@@ -40,7 +43,6 @@ export const useKeboolaComponentData = () => {
         icon: component.icon,
         categories: component.categories,
         shortDescription: component.shortDescription,
-        longDescription: component.longDescription,
       })
     })
   }

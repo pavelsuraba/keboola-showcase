@@ -13,7 +13,7 @@ export const Header = () => (
     <Container className="flex py-3">
       <KeboolaLogo />
       <div className="pl-3 pt-0.5">
-        <h1 className=" text-gray-400 font-medium">Keboola</h1>
+        <p className=" text-gray-400 font-medium">Keboola</p>
         <p className="font-medium text-base leading-none">user@gmail.com</p>
       </div>
     </Container>
