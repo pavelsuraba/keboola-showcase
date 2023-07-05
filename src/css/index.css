@@ -11,3 +11,7 @@ body {
   @apply antialiased;
   -webkit-text-size-adjust: 100%;
 }
+
+mark {
+  @apply bg-blue-200;
+}

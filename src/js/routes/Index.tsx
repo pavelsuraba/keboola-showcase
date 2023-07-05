@@ -1,39 +1,44 @@
 import { useState } from 'react'
-import { SearchIcon } from '../components/Icons'
 import { useKeboolaComponentData } from '../utils/data'
 import { Loader } from '../components/Loader'
 import { ComponentList } from '../components/ComponentList'
+import { filterValue } from '../utils/string'
+import { SearchInput } from '../components/SearchInput'
 
 export const Index = () => {
-  const { data, isLoading } = useKeboolaComponentData()
   const [query, setQuery] = useState('')
-
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value)
-  }
+  const { data, isLoading } = useKeboolaComponentData()
 
   const handleClick = (id: string) => {
     console.log(id)
   }
 
-  return (
-    <div>
-      <div className="flex items-center justify-between pt-12 pb-8">
-        <h2 className="text-3xl font-medium">Components</h2>
+  // Type at least 2 letters to filter results
+  const searchQuery = query.length < 2 ? '' : query
 
-        <div className="relative w-56">
-          <div className="absolute left-3 top-3.5">
-            <SearchIcon />
-          </div>
-          <input
-            aria-label="Search"
-            type="text"
-            placeholder="Search component..."
-            className="px-2 pl-9 rounded-md bg-white h-10 w-full outline-0 border border-gray-200 focus:border-gray-400 placeholder:text-gray-500 text-base"
-            onChange={handleSearch}
-            value={query}
-          />
-        </div>
+  const filteredData = searchQuery
+    ? data?.filter(
+        (component) =>
+          filterValue(component.id, searchQuery) ||
+          filterValue(component.name, searchQuery) ||
+          filterValue(component.shortDescription || '', searchQuery),
+      )
+    : data
+
+  return (
+    <>
+      <div className="flex items-center justify-between pt-12 pb-8">
+        <h2 className="text-3xl font-medium">
+          Components {filteredData && `(${filteredData.length})`}
+        </h2>
+
+        <SearchInput
+          className="w-56"
+          placeholder="Search component..."
+          value={query}
+          onChange={setQuery}
+          onClear={() => setQuery('')}
+        />
       </div>
 
       {isLoading && (
@@ -42,7 +47,21 @@ export const Index = () => {
         </div>
       )}
 
-      {data && <ComponentList components={data} onClick={handleClick} />}
-    </div>
+      {filteredData && (
+        <>
+          {filteredData.length === 0 ? (
+            <div className="text-center mt-20 text-lg font-medium">
+              No components found!
+            </div>
+          ) : (
+            <ComponentList
+              query={searchQuery}
+              components={filteredData}
+              onClick={handleClick}
+            />
+          )}
+        </>
+      )}
+    </>
   )
 }

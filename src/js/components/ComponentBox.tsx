@@ -1,13 +1,21 @@
 import { twMerge } from 'tailwind-merge'
+import Highlighter from 'react-highlight-words'
+
 import { Component } from '../utils/data'
 
 type Props = {
   component: Component
   className?: string
+  query: string
   onClick: (id: Component['id']) => void
 }
 
-export const ComponentBox = ({ component, className, onClick }: Props) => {
+export const ComponentBox = ({
+  component,
+  className,
+  query,
+  onClick,
+}: Props) => {
   const { id, name, shortDescription, categories } = component
   const src = component.icon[128] || component.icon[64] || component.icon[32]
 
@@ -32,7 +40,15 @@ export const ComponentBox = ({ component, className, onClick }: Props) => {
           )}
           <p className="text-base font-medium ml-3">{name}</p>
         </div>
-        <p className="mt-3 text-gray-500 line-clamp-2">{shortDescription}</p>
+
+        {shortDescription && (
+          <p className="mt-3 text-gray-500 line-clamp-2">
+            <Highlighter
+              searchWords={[query]}
+              textToHighlight={shortDescription}
+            />
+          </p>
+        )}
       </div>
 
       {categories.length > 0 && (

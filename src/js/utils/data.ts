@@ -9,8 +9,8 @@ export const getComponentDetailUrl = (id: string) =>
 export type Component = {
   id: string
   categories: string[]
-  shortDescription: string
-  longDescription: string
+  shortDescription: string | null
+  longDescription: string | null
   name: string
   icon: Icon
 }
@@ -46,7 +46,7 @@ export const useKeboolaComponentData = () => {
   }
 
   return {
-    data: rawData ? data : null,
+    data: rawData ? data : undefined,
     ...rest,
   }
 }
