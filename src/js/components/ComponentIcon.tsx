@@ -1,10 +1,11 @@
+import { memo } from 'react'
 import type { Component } from '../types'
 
 type Props = {
   icon: Component['icon']
 }
 
-export const ComponentIcon = ({ icon }: Props) => {
+const ComponentIconPure = ({ icon }: Props) => {
   const src = icon[128] || icon[64] || icon[32]
 
   return (
@@ -18,3 +19,5 @@ export const ComponentIcon = ({ icon }: Props) => {
     </>
   )
 }
+
+export const ComponentIcon = memo(ComponentIconPure)

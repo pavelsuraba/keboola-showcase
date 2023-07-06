@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { useKeboolaComponentData } from '../utils/data'
 import { Loader } from '../components/Loader'
 import { ComponentList } from '../components/ComponentList'
-import { filterValue } from '../utils/string'
 import { SearchInput } from '../components/SearchInput'
+import { useKeboolaComponentData } from '../utils/data'
+import { filterValue } from '../utils/string'
 import { useActiveComponentStore } from '../store'
-import type { Component } from '../types'
+import { Component } from '../types'
 
 export const Index = () => {
   const { data, isLoading } = useKeboolaComponentData()
@@ -27,11 +27,6 @@ export const Index = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeComponent])
 
-  const handleClick = (component: Component) => {
-    setActiveComponent(component)
-    navigate(`/components/${component.id}`)
-  }
-
   // Type at least 2 letters to filter results
   const searchQuery = query.length < 2 ? '' : query
 
@@ -43,6 +38,15 @@ export const Index = () => {
           filterValue(component.shortDescription || '', searchQuery),
       )
     : data
+
+  const handleClick = (id: Component['id']) => {
+    const component = filteredData?.find((c) => c.id === id)
+
+    if (component) {
+      setActiveComponent(component)
+      navigate(`/components/${component.id}`)
+    }
+  }
 
   return (
     <section className="py-8 lg:py-12">

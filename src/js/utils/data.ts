@@ -10,12 +10,17 @@ export const getComponentDetailUrl = (id: string) =>
 export type ComponentsResponse = Array<Component>
 export type ComponentDetailResponse = Component
 
+const swrOptions = {
+  revalidateOnFocus: false,
+}
+
 const fetcher = (url: string) => fetch(url).then((r) => r.json())
 
 export const useKeboolaComponentData = () => {
   const { data: rawData, ...rest } = useSWR<ComponentsResponse>(
     getComponentsUrl(),
     fetcher,
+    swrOptions,
   )
   const data: Component[] = []
 
@@ -40,7 +45,7 @@ export const useKeboolaComponentData = () => {
 }
 
 export const useKeboolaData = <T>(url: string | null) => {
-  const response = useSWR<T>(url, fetcher)
+  const response = useSWR<T>(url, fetcher, swrOptions)
 
   return response
 }
