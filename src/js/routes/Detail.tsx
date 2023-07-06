@@ -23,6 +23,8 @@ export const Detail = () => {
       shouldFetch ? getComponentDetailUrl(componentId || '') : null,
     )
 
+  // When navigating from the homepage use data persisted in the store.
+  // Otherwise fetch them here.
   const data = activeComponent || fetchedData
 
   if (isLoading) {
