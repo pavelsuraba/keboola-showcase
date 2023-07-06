@@ -1,11 +1,30 @@
 # Keboola-showcase
 
+## Installation
+
+```sh
+$ git clone git@github.com:pavelsuraba/keboola-showcase.git
+$ yarn
+```
+
+## Development
+
+```sh
+$ yarn dev
+```
+
+## Production
+
+```sh
+$ yarn build
+```
+
 ## Dev stack
 
 **vite** https://vitejs.dev
 Simple modern frontend tooling.
 
-**tailwind** https://tailwindcss.com
+**Tailwind** https://tailwindcss.com
 Modern utility first css framework with following benefits:
 
 - You aren’t wasting energy inventing class names
