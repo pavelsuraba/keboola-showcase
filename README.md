@@ -14,3 +14,9 @@ Modern utility first css framework with following benefits:
 
 **SWR** https://swr.vercel.app
 Data Fetching, I've never used it before but it's very intuitive and works well.
+
+**Zustand** https://github.com/pmndrs/zustand
+Zustand a simple state management.
+
+**React router** https://reactrouter.com/en/main
+Client side routing.
