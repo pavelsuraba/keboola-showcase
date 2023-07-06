@@ -1,4 +1,4 @@
-import { Component } from '../utils/data'
+import type { Component } from '../types'
 
 type Props = {
   icon: Component['icon']

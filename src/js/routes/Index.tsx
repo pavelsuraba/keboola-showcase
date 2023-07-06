@@ -1,18 +1,35 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+
 import { useKeboolaComponentData } from '../utils/data'
 import { Loader } from '../components/Loader'
 import { ComponentList } from '../components/ComponentList'
 import { filterValue } from '../utils/string'
 import { SearchInput } from '../components/SearchInput'
-import { useNavigate } from 'react-router-dom'
+import { useActiveComponentStore } from '../store'
+import type { Component } from '../types'
 
 export const Index = () => {
-  const [query, setQuery] = useState('')
   const { data, isLoading } = useKeboolaComponentData()
+  const [query, setQuery] = useState('')
   const navigate = useNavigate()
 
-  const handleClick = (id: string) => {
-    navigate(`/components/${id}`)
+  const setActiveComponent = useActiveComponentStore(
+    (state) => state.setComponent,
+  )
+
+  const activeComponent = useActiveComponentStore((state) => state.component)
+
+  useEffect(() => {
+    if (activeComponent) {
+      setActiveComponent(null)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeComponent])
+
+  const handleClick = (component: Component) => {
+    setActiveComponent(component)
+    navigate(`/components/${component.id}`)
   }
 
   // Type at least 2 letters to filter results

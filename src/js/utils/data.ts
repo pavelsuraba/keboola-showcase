@@ -1,4 +1,5 @@
 import useSWR from 'swr'
+import { Component } from '../types'
 
 export const getComponentsUrl = (offset = 0, limit = 1000) =>
   `https://apps-api.keboola.com/apps?offset=${offset}&limit=${limit}`
@@ -6,25 +7,8 @@ export const getComponentsUrl = (offset = 0, limit = 1000) =>
 export const getComponentDetailUrl = (id: string) =>
   `https://apps-api.keboola.com/apps/${id}`
 
-export type Component = {
-  id: string
-  categories: string[]
-  shortDescription: string | null
-  name: string
-  icon: Icon
-}
-
-type Icon = {
-  32: string | null
-  64: string | null
-  128: string | null
-}
-
 export type ComponentsResponse = Array<Component>
-export type ComponentDetailResponse = Component & {
-  version: string
-  longDescription: string | null
-}
+export type ComponentDetailResponse = Component
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json())
 
@@ -42,7 +26,9 @@ export const useKeboolaComponentData = () => {
         name: component.name,
         icon: component.icon,
         categories: component.categories,
+        version: component.version,
         shortDescription: component.shortDescription,
+        longDescription: component.longDescription,
       })
     })
   }
@@ -53,7 +39,7 @@ export const useKeboolaComponentData = () => {
   }
 }
 
-export const useKeboolaData = <T>(url: string) => {
+export const useKeboolaData = <T>(url: string | null) => {
   const response = useSWR<T>(url, fetcher)
 
   return response

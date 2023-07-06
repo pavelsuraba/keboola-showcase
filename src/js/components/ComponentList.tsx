@@ -1,11 +1,11 @@
 import LazyLoad from 'react-lazy-load'
-import { Component } from '../utils/data'
 import { ComponentBox } from './ComponentBox'
+import type { Component } from '../types'
 
 type Props = {
   components: Component[]
   query: string
-  onClick: (id: Component['id']) => void
+  onClick: (component: Component) => void
 }
 
 export const ComponentList = ({ components, query, onClick }: Props) => {

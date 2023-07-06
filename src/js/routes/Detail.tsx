@@ -10,12 +10,20 @@ import {
 } from '../utils/data'
 import { Link, useParams } from 'react-router-dom'
 import { ArrowLeft } from '../components/Icons'
+import { useActiveComponentStore } from '../store'
 
 export const Detail = () => {
+  const activeComponent = useActiveComponentStore((state) => state.component)
+  const shouldFetch = activeComponent === null
+
   const { componentId } = useParams()
-  const { data, isLoading } = useKeboolaData<ComponentDetailResponse>(
-    getComponentDetailUrl(componentId || ''),
-  )
+
+  const { data: fetchedData, isLoading } =
+    useKeboolaData<ComponentDetailResponse>(
+      shouldFetch ? getComponentDetailUrl(componentId || '') : null,
+    )
+
+  const data = activeComponent || fetchedData
 
   if (isLoading) {
     return (

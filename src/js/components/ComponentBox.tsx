@@ -1,15 +1,15 @@
 import { twMerge } from 'tailwind-merge'
 import Highlighter from 'react-highlight-words'
 
-import { Component } from '../utils/data'
 import { ComponentIcon } from './ComponentIcon'
 import { Badge } from './Badge'
+import type { Component } from '../types'
 
 type Props = {
   component: Component
   className?: string
   query: string
-  onClick: (id: Component['id']) => void
+  onClick: (component: Component) => void
 }
 
 export const ComponentBox = ({
@@ -18,11 +18,7 @@ export const ComponentBox = ({
   query,
   onClick,
 }: Props) => {
-  const { id, name, shortDescription, categories } = component
-
-  const handleClick = (id: string) => () => {
-    onClick(id)
-  }
+  const { name, shortDescription, categories } = component
 
   return (
     <div
@@ -30,7 +26,7 @@ export const ComponentBox = ({
         'p-5 flex flex-col justify-between rounded-md bg-white h-full shadow shadow-gray-200 cursor-pointer transition-all hover:shadow-md',
         className,
       )}
-      onClick={handleClick(id)}
+      onClick={() => onClick(component)}
     >
       <div>
         <div className="flex items-center">
